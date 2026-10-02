@@ -1819,8 +1819,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1948058397}
-  - {fileID: 1790606024}
   - {fileID: 1533185388}
+  - {fileID: 1790606024}
   m_Father: {fileID: 1593135281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1903,6 +1903,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc12cdc571df4bf40bc4f0ad511050a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  menuCG: {fileID: 1948058398}
+  creditsCG: {fileID: 1533185389}
+  difficultyCG: {fileID: 1790606025}
+  playButton: {fileID: 1794877938}
+  playMultiplayerButton: {fileID: 1043033630}
+  creditsButton: {fileID: 1118139734}
+  backButton: {fileID: 1189753956}
+  easyButton: {fileID: 697960742}
+  mediumButton: {fileID: 2003485225}
+  hardButton: {fileID: 573359270}
 --- !u!1 &1189753954
 GameObject:
   m_ObjectHideFlags: 0

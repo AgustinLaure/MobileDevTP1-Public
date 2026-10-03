@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 
     public Visualizacion MiVisualizacion;
 
+    private EventBus eventBus;
+
     //------------------------------------------------------------------//
 
     // Use this for initialization
@@ -31,6 +33,8 @@ public class Player : MonoBehaviour
             Bolasas[i] = null;
 
         MiVisualizacion = GetComponent<Visualizacion>();
+
+        eventBus = ServiceLocator.Instance.GetService<EventBus>();
     }
 
     // Update is called once per frame
@@ -41,14 +45,24 @@ public class Player : MonoBehaviour
 
     //------------------------------------------------------------------//
 
+    public void AddMoney(int money)
+    {
+        Dinero += money;
+        eventBus.Raise<OnPlayerMoneyUpdated>(this, Dinero);
+    }
+
     public bool AgregarBolsa(Bolsa b)
     {
         if (CantBolsAct + 1 <= Bolasas.Length)
         {
             Bolasas[CantBolsAct] = b;
             CantBolsAct++;
-            Dinero += (int)b.Monto;
+            AddMoney((int)b.Monto);
+
             b.Desaparecer();
+
+            eventBus.Raise<OnBagCollected>(this, CantBolsAct);
+
             return true;
         }
         else
@@ -61,6 +75,8 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < Bolasas.Length; i++)
             Bolasas[i] = null;
+
+        eventBus.Raise<OnBagCollected>(this, 0);
 
         CantBolsAct = 0;
     }
@@ -98,11 +114,14 @@ public class Player : MonoBehaviour
         MiVisualizacion.CambiarATutorial();
         EstAct = Player.Estados.EnTutorial;
         ContrTuto.Iniciar();
-        
+
     }
 
     public void CambiarAConduccion()
     {
+        VaciarInv();
+        eventBus.Raise<OnPlayerWaitingTextShouldUpdate>(this, false);
+
         MiVisualizacion.CambiarAConduccion();
         EstAct = Player.Estados.EnConduccion;
     }
@@ -113,6 +132,7 @@ public class Player : MonoBehaviour
         EstAct = Player.Estados.EnDescarga;
     }
 
+
     public void SacarBolasa()
     {
         for (int i = 0; i < Bolasas.Length; i++)
@@ -120,10 +140,12 @@ public class Player : MonoBehaviour
             if (Bolasas[i] != null)
             {
                 Bolasas[i] = null;
+
+                CantBolsAct--;
+                eventBus.Raise<OnBagCollected>(this, CantBolsAct);
+
                 return;
             }
         }
     }
-
-
 }

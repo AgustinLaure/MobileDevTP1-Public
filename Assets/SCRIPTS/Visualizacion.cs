@@ -88,21 +88,20 @@ public class Visualizacion : MonoBehaviour
     public Texture2D TextNum2;
     public GameObject Techo;
 
-    [SerializeField] private TruckHUD truckHud;
-
-
     Rect R;
+
+    private EventBus eventBus;
 
     //------------------------------------------------------------------//
 
     // Use this for initialization
     void Start()
     {
+        eventBus = ServiceLocator.Instance.GetService<EventBus>();
+
         TempoIntTuto = Intervalo;
         Direccion = GetComponent<ControlDireccion>();
         Pj = GetComponent<Player>();
-
-        truckHud.SetCanvasCamera(CamConduccion);
     }
 
     // Update is called once per frame
@@ -130,7 +129,6 @@ public class Visualizacion : MonoBehaviour
 
             case Player.Estados.EnDescarga:
                 //inventario
-                SetInv3();
                 //el bonus
                 SetBonus();
                 //contador de dinero
@@ -263,16 +261,16 @@ public class Visualizacion : MonoBehaviour
 
     void SetDinero()
     {
-        GUI.skin = GS_Din;
-
-        R.width = DinEsc.x * Screen.width / 100;
-        R.height = DinEsc.y * Screen.height / 100;
-        R.x = DinPos[0].x * Screen.width / 100;
-        R.y = DinPos[0].y * Screen.height / 100;
-        if (LadoAct == Visualizacion.Lado.Der)
-            R.x = DinPos[1].x * Screen.width / 100;
+        //GUI.skin = GS_Din;
+        //
+        //R.width = DinEsc.x * Screen.width / 100;
+        //R.height = DinEsc.y * Screen.height / 100;
+        //R.x = DinPos[0].x * Screen.width / 100;
+        //R.y = DinPos[0].y * Screen.height / 100;
+        //if (LadoAct == Visualizacion.Lado.Der)
+        //    //R.x = DinPos[1].x * Screen.width / 100;
         //R.x = (Screen.width) - (Screen.width/2) - R.x;
-        GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));
+        //GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));
     }
 
     void SetCalibr()
@@ -325,19 +323,7 @@ public class Visualizacion : MonoBehaviour
 
     void SetTuto()
     {
-        if (Pj.ContrTuto.Finalizado)
-        {
-            GUI.skin = GS_TutoCalib;
-
-            R.width = ReadyEsc.x * Screen.width / 100;
-            R.height = ReadyEsc.y * Screen.height / 100;
-            R.x = ReadyPos.x * Screen.width / 100;
-            R.y = ReadyPos.y * Screen.height / 100;
-            if (LadoAct == Visualizacion.Lado.Der)
-                R.x = (Screen.width) - R.x - R.width;
-
-            GUI.Box(R, "ESPERANDO AL OTRO JUGADOR");
-        }
+        eventBus.Raise<OnPlayerWaitingTextShouldUpdate>(Pj, Pj.ContrTuto.Finalizado);
     }
 
     /*
@@ -444,80 +430,80 @@ public class Visualizacion : MonoBehaviour
 
     void SetInv3()
     {
-        GUI.skin = GS_Inv;
-
-        R.width = FondoEsc.x * Screen.width / 100;
-        R.height = FondoEsc.y * Screen.width / 100;
-        R.x = FondoPos[0].x * Screen.width / 100;
-        R.y = FondoPos[0].y * Screen.height / 100;
-
-        int contador = 0;
-        for (int i = 0; i < 3; i++)
-        {
-            if (Pj.Bolasas[i] != null)
-                contador++;
-        }
-
-        if (LadoAct == Visualizacion.Lado.Der)
-        {
-            //R.x = (Screen.width) - (Screen.width/2) - R.x;
-            R.x = FondoPos[1].x * Screen.width / 100;
-
-            if (contador < 3)
-                GS_Inv.box.normal.background = TextInvDer[contador];
-            else
-            {
-                TempParp += T.GetDT();
-
-                if (TempParp >= Parpadeo)
-                {
-                    TempParp = 0;
-                    if (PrimIma)
-                        PrimIma = false;
-                    else
-                        PrimIma = true;
-                }
-
-                if (PrimIma)
-                {
-                    GS_Inv.box.normal.background = TextInvDer[3];
-                }
-                else
-                {
-                    GS_Inv.box.normal.background = TextInvDer[4];
-                }
-
-            }
-        }
-        else
-        {
-            if (contador < 3)
-                GS_Inv.box.normal.background = TextInvIzq[contador];
-            else
-            {
-                TempParp += T.GetDT();
-
-                if (TempParp >= Parpadeo)
-                {
-                    TempParp = 0;
-                    if (PrimIma)
-                        PrimIma = false;
-                    else
-                        PrimIma = true;
-                }
-
-                if (PrimIma)
-                {
-                    GS_Inv.box.normal.background = TextInvIzq[3];
-                }
-                else
-                {
-                    GS_Inv.box.normal.background = TextInvIzq[4];
-                }
-            }
-        }
-
-        GUI.Box(R, "");
+        //GUI.skin = GS_Inv;
+        //
+        //R.width = FondoEsc.x * Screen.width / 100;
+        //R.height = FondoEsc.y * Screen.width / 100;
+        //R.x = FondoPos[0].x * Screen.width / 100;
+        //R.y = FondoPos[0].y * Screen.height / 100;
+        //
+        //int contador = 0;
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    if (Pj.Bolasas[i] != null)
+        //        contador++;
+        //}
+        //
+        //if (LadoAct == Visualizacion.Lado.Der)
+        //{
+        //    //R.x = (Screen.width) - (Screen.width/2) - R.x;
+        //    R.x = FondoPos[1].x * Screen.width / 100;
+        //
+        //    if (contador < 3)
+        //        GS_Inv.box.normal.background = TextInvDer[contador];
+        //    else
+        //    {
+        //        TempParp += T.GetDT();
+        //
+        //        if (TempParp >= Parpadeo)
+        //        {
+        //            TempParp = 0;
+        //            if (PrimIma)
+        //                PrimIma = false;
+        //            else
+        //                PrimIma = true;
+        //        }
+        //
+        //        if (PrimIma)
+        //        {
+        //            GS_Inv.box.normal.background = TextInvDer[3];
+        //        }
+        //        else
+        //        {
+        //            GS_Inv.box.normal.background = TextInvDer[4];
+        //        }
+        //
+        //    }
+        //}
+        //else
+        //{
+        //    if (contador < 3)
+        //        GS_Inv.box.normal.background = TextInvIzq[contador];
+        //    else
+        //    {
+        //        TempParp += T.GetDT();
+        //
+        //        if (TempParp >= Parpadeo)
+        //        {
+        //            TempParp = 0;
+        //            if (PrimIma)
+        //                PrimIma = false;
+        //            else
+        //                PrimIma = true;
+        //        }
+        //
+        //        if (PrimIma)
+        //        {
+        //            GS_Inv.box.normal.background = TextInvIzq[3];
+        //        }
+        //        else
+        //        {
+        //            GS_Inv.box.normal.background = TextInvIzq[4];
+        //        }
+        //    }
+        //}
+        //
+        //GUI.Box(R, "");
     }
 
     public string PrepararNumeros(int dinero)

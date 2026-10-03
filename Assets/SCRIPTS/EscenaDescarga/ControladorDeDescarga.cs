@@ -142,8 +142,8 @@ public class ControladorDeDescarga : MonoBehaviour
 		//termina la descarga
 		PEnMov = null;
 		Contador--;
-		
-		Pj.Dinero += (int)Bonus;
+
+		Pj.AddMoney((int)Bonus);
 		
 		if(Contador <= 0)
 		{
@@ -163,7 +163,8 @@ public class ControladorDeDescarga : MonoBehaviour
 		Est2.enabled = false;
 		Cin2.enabled = false;
 	}
-	
+
+
 	void Finalizacion()
 	{
 		ObjAnimado.Salir();

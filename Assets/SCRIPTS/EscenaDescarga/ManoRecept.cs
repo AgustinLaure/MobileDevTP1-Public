@@ -28,7 +28,10 @@ public class ManoRecept : ManejoPallets
 		{
 			pallet.Portador = this.gameObject;
 			base.Recibir(pallet);
-			return true;
+
+            Debug.Log("manorecept recibir");
+
+            return true;
 		}
 		else
 			return false;
@@ -36,8 +39,9 @@ public class ManoRecept : ManejoPallets
 	
 	public override void Dar(ManejoPallets receptor)
 	{
-		//Debug.Log(gameObject.name+ " / Dar()");
-		switch (receptor.tag)
+        Debug.Log("manorecept dar");
+        //Debug.Log(gameObject.name+ " / Dar()");
+        switch (receptor.tag)
 		{
 		case "Mano":
 			if(Tenencia())

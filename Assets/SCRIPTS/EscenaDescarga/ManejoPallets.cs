@@ -12,7 +12,10 @@ public class ManejoPallets : MonoBehaviour
 		Debug.Log(gameObject.name+" / Recibir()");
 		Pallets.Add(pallet);
 		pallet.Pasaje();
-		return true;
+
+		Debug.Log("manejoPallet");
+
+        return true;
 	}
 	
 	public bool Tenencia()

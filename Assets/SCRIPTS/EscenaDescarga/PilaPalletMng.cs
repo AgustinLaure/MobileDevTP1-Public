@@ -23,7 +23,7 @@ public class PilaPalletMng : MonoBehaviour
 	
 	public void Sacar()
 	{
-		BolasasEnCamion[CantAct-1].GetComponent<Renderer>().enabled = false;
+        BolasasEnCamion[CantAct-1].GetComponent<Renderer>().enabled = false;
 		CantAct--;
 	}
 	

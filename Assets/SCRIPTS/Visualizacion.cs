@@ -1,5 +1,7 @@
+using TMPro;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
-using System.Collections;
+using UnityEngine.UI;
 
 /// <summary>
 /// clase encargada de TODA la visualizacion
@@ -91,6 +93,10 @@ public class Visualizacion : MonoBehaviour
     Rect R;
 
     private EventBus eventBus;
+
+    [SerializeField] private CanvasGroup bonusCG;
+    [SerializeField] private Image bonusFiller;
+    [SerializeField] private TextMeshProUGUI bonusMoney;
 
     //------------------------------------------------------------------//
 
@@ -220,43 +226,54 @@ public class Visualizacion : MonoBehaviour
 
     void SetBonus()
     {
+        UIUtils.SetCanvasState(bonusCG, Pj.ContrDesc.PEnMov);
+
         if (Pj.ContrDesc.PEnMov != null)
         {
-            //el fondo
-            GUI.skin = GS_FondoFondoBonusColor;
-
-            R.width = ColorFondoFondoEsc.x * Screen.width / 100;
-            R.height = ColorFondoFondoEsc.y * Screen.height / 100;
-            R.x = ColorFondoFondoPos.x * Screen.width / 100;
-            R.y = ColorFondoFondoPos.y * Screen.height / 100;
-            if (LadoAct == Visualizacion.Lado.Der)
-                R.x += (Screen.width) / 2;
-            GUI.Box(R, "");
-
-
-            //el fondo
-            GUI.skin = GS_FondoBonusColor;
-
-            R.width = ColorFondoEsc.x * Screen.width / 100;
-            R.height = (ColorFondoEsc.y * Screen.height / 100) * (Pj.ContrDesc.Bonus / (int)Pallet.Valores.Valor2);
-            R.x = ColorFondoPos.x * Screen.width / 100;
-            R.y = (ColorFondoPos.y * Screen.height / 100) - R.height;
-            if (LadoAct == Visualizacion.Lado.Der)
-                R.x += (Screen.width) / 2;
-            GUI.Box(R, "");
-
-
-            //la bolsa
-            GUI.skin = GS_Bonus;
-
-            R.width = BonusEsc.x * Screen.width / 100;
-            R.height = R.width / 2;
-            R.x = BonusPos.x * Screen.width / 100;
-            R.y = BonusPos.y * Screen.height / 100;
-            if (LadoAct == Visualizacion.Lado.Der)
-                R.x += (Screen.width) / 2;
-            GUI.Box(R, "     $" + Pj.ContrDesc.Bonus.ToString("0"));
+            bonusFiller.fillAmount = (Pj.ContrDesc.Bonus / (int)Pallet.Valores.Valor2) * 2f;
+            bonusMoney.text = "$" + Pj.ContrDesc.Bonus.ToString("F0");
         }
+
+        //if (Pj.ContrDesc.PEnMov != null)
+        //{
+        //
+        //   
+        //  
+        //     //el fondo
+        //     GUI.skin = GS_FondoFondoBonusColor;
+        //    
+        //     R.width = ColorFondoFondoEsc.x * Screen.width / 100;
+        //     R.height = ColorFondoFondoEsc.y * Screen.height / 100;
+        //     R.x = ColorFondoFondoPos.x * Screen.width / 100;
+        //     R.y = ColorFondoFondoPos.y * Screen.height / 100;
+        //     if (LadoAct == Visualizacion.Lado.Der)
+        //         R.x += (Screen.width) / 2;
+        //     GUI.Box(R, "");
+        //    
+        //    
+        //     //el fondo
+        //     GUI.skin = GS_FondoBonusColor;
+        //    
+        //     R.width = ColorFondoEsc.x * Screen.width / 100;
+        //     R.height = (ColorFondoEsc.y * Screen.height / 100) * (Pj.ContrDesc.Bonus / (int)Pallet.Valores.Valor2);
+        //     R.x = ColorFondoPos.x * Screen.width / 100;
+        //     R.y = (ColorFondoPos.y * Screen.height / 100) - R.height;
+        //     if (LadoAct == Visualizacion.Lado.Der)
+        //         R.x += (Screen.width) / 2;
+        //     GUI.Box(R, "");
+        //    
+        //    
+        //     //la bolsa
+        //     GUI.skin = GS_Bonus;
+        //    
+        //     R.width = BonusEsc.x * Screen.width / 100;
+        //     R.height = R.width / 2;
+        //     R.x = BonusPos.x * Screen.width / 100;
+        //     R.y = BonusPos.y * Screen.height / 100;
+        //     if (LadoAct == Visualizacion.Lado.Der)
+        //         R.x += (Screen.width) / 2;
+        //     GUI.Box(R, "     $" + Pj.ContrDesc.Bonus.ToString("0"));
+        //}
     }
 
     void SetDinero()
@@ -277,12 +294,12 @@ public class Visualizacion : MonoBehaviour
     {
         GUI.skin = GS_TutoCalib;
 
-        R.width = ReadyEsc.x * Screen.width / 100;
-        R.height = ReadyEsc.y * Screen.height / 100;
-        R.x = ReadyPos.x * Screen.width / 100;
-        R.y = ReadyPos.y * Screen.height / 100;
+        R.width = ReadyEsc.x * UnityEngine.Screen.width / 100;
+        R.height = ReadyEsc.y * UnityEngine.Screen.height / 100;
+        R.x = ReadyPos.x * UnityEngine.Screen.width / 100;
+        R.y = ReadyPos.y * UnityEngine.Screen.height / 100;
         if (LadoAct == Visualizacion.Lado.Der)
-            R.x = (Screen.width) - R.x - R.width;
+            R.x = (UnityEngine.Screen.width) - R.x - R.width;
 
         switch (Pj.ContrCalib.EstAct)
         {
@@ -377,13 +394,13 @@ public class Visualizacion : MonoBehaviour
     {
         GUI.skin = GS_Volante;
 
-        R.width = VolanteEsc * Screen.width / 100;
-        R.height = VolanteEsc * Screen.width / 100;
-        R.x = VolantePos[0].x * Screen.width / 100;
-        R.y = VolantePos[0].y * Screen.height / 100;
+        R.width = VolanteEsc * UnityEngine.Screen.width / 100;
+        R.height = VolanteEsc * UnityEngine.Screen.width / 100;
+        R.x = VolantePos[0].x * UnityEngine.Screen.width / 100;
+        R.y = VolantePos[0].y * UnityEngine.Screen.height / 100;
 
         if (LadoAct == Visualizacion.Lado.Der)
-            R.x = VolantePos[1].x * Screen.width / 100;
+            R.x = VolantePos[1].x * UnityEngine.Screen.width / 100;
         //R.x = (Screen.width) - ((Screen.width/2) - R.x);
 
         Vector2 centro;
@@ -402,10 +419,10 @@ public class Visualizacion : MonoBehaviour
     {
         GUI.skin = GS_Inv;
 
-        R.width = FondoEsc.x * Screen.width / 100;
-        R.height = FondoEsc.y * Screen.width / 100;
-        R.x = FondoPos[0].x * Screen.width / 100;
-        R.y = FondoPos[0].y * Screen.height / 100;
+        R.width = FondoEsc.x * UnityEngine.Screen.width / 100;
+        R.height = FondoEsc.y * UnityEngine.Screen.width / 100;
+        R.x = FondoPos[0].x * UnityEngine.Screen.width / 100;
+        R.y = FondoPos[0].y * UnityEngine.Screen.height / 100;
 
         int contador = 0;
         for (int i = 0; i < 3; i++)
@@ -417,7 +434,7 @@ public class Visualizacion : MonoBehaviour
         if (LadoAct == Visualizacion.Lado.Der)
         {
             //R.x = (Screen.width) - R.x - R.width;
-            R.x = FondoPos[1].x * Screen.width / 100;
+            R.x = FondoPos[1].x * UnityEngine.Screen.width / 100;
             GS_Inv.box.normal.background = TextInvDer[contador];
         }
         else

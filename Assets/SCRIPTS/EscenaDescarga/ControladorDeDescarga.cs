@@ -38,12 +38,16 @@ public class ControladorDeDescarga : MonoBehaviour
 	
 	public AnimMngDesc ObjAnimado;
 
+	private EventBus eventBus;
+
 	
 	//--------------------------------------------------------------//
 
 	// Use this for initialization
 	void Start () 
 	{
+		eventBus = ServiceLocator.Instance.GetService<EventBus>();
+
 		for (int i = 0; i < Componentes.Length; i++)
 		{
 			Componentes[i].SetActiveRecursively(false);
@@ -179,9 +183,11 @@ public class ControladorDeDescarga : MonoBehaviour
 	{
 		//avisa cuando termino la animacion para que prosiga el juego
 		Est2.EncenderAnim();
-	}
-	
-	public void FinAnimSalida()
+
+        eventBus.Raise<OnPlayerUnloadStateChanged>(Pj, true);
+    }
+
+    public void FinAnimSalida()
 	{
 		//avisa cuando termino la animacion para que prosiga el juego
 		
@@ -197,7 +203,8 @@ public class ControladorDeDescarga : MonoBehaviour
 		Pj.CambiarAConduccion();
 		
 		Dep.Soltar();
-		
-	}
+
+        eventBus.Raise<OnPlayerUnloadStateChanged>(Pj, true);
+    }
 	
 }

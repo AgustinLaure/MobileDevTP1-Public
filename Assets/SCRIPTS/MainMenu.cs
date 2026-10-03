@@ -81,7 +81,7 @@ public class MainMenu : MonoBehaviour
 
     private void Play()
     {
-        Application.LoadLevel(0);
+        Application.LoadLevel(1);
     }
 
     private void OnDisable()

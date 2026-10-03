@@ -490,6 +490,9 @@ public class GameManager : MonoBehaviour
 		Player2.transform.forward = Vector3.forward;
 		
 		EstAct = GameManager.EstadoJuego.Jugando;
+
+		Player1.Dinero = 0;
+		Player2.Dinero = 0;
 	}
 	
 	public void FinTutorial(int playerID)
@@ -521,8 +524,12 @@ public class GameManager : MonoBehaviour
 		}
 		
 		if(PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
-			if(PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
-				CambiarACarrera();//CambiarATutorial();
+		{
+            CambiarATutorial();
+
+        }
+        if (PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
+				CambiarACarrera();
 		
 	}
 	

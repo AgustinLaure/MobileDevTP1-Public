@@ -8,7 +8,7 @@ public class UnloadSceneManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private CanvasGroup canvas;
     [SerializeField] private Image image;
-    [SerializeField] private Sprite[] frames;
+    [SerializeField] public Sprite[] frames;
 
     [SerializeField] private float interval;
     private EventBus eventBus;

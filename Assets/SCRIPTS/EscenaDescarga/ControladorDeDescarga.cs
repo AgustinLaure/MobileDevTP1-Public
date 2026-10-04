@@ -75,8 +75,6 @@ public class ControladorDeDescarga : MonoBehaviour
                 Bonus = 0;
             }
         }
-
-
     }
 
     //--------------------------------------------------------------//

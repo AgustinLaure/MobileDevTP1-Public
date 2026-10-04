@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Threading.Tasks;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -92,6 +93,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AssetReference hardObstacleLayoutPrefab;
     [SerializeField] private Transform obstaclesPos;
 
+    [SerializeField] private Sprite[] unloadMoves;
+
+    [SerializeField] private UnloadSceneManager leftPlayerUnloadSceneManager;
+    [SerializeField] private UnloadSceneManager rightPlayerUnloadSceneManager;
+    [SerializeField] private Image leftPlayerUnloadDefaultImage;
+    [SerializeField] private Image rightPlayerUnloadDefaultImage;
+
     private GameObject currentObstacle;
 
     private const string finalSceneName = "PtsFinal";
@@ -105,6 +113,20 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+#if UNITY_ANDROID
+        leftPlayerUnloadSceneManager.frames[0] = unloadMoves[0];
+        leftPlayerUnloadSceneManager.frames[1] = unloadMoves[1];
+        leftPlayerUnloadSceneManager.frames[2] = unloadMoves[2];
+        leftPlayerUnloadDefaultImage.sprite = unloadMoves[0];
+
+        rightPlayerUnloadSceneManager.frames[0] = unloadMoves[0];
+        rightPlayerUnloadSceneManager.frames[1] = unloadMoves[1];
+        rightPlayerUnloadSceneManager.frames[2] = unloadMoves[2];
+        rightPlayerUnloadDefaultImage.sprite = unloadMoves[0];
+
+#endif
+
+
         SpawnObstacles();
 
         //IniciarCalibracion();

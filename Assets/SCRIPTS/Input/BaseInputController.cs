@@ -16,8 +16,5 @@ public abstract class BaseInputController
 
     public abstract float GetSteering();
 
-    public abstract bool GetUpPressed();
-    public abstract bool GetDownPressed();
-    public abstract bool GetLeftPressed();
-    public abstract bool GetRightPressed();
+    public abstract Vector2 GetAxis();
 }

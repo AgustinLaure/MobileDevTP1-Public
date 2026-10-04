@@ -22,15 +22,17 @@ public class PalletMover : ManejoPallets
 
     private void Update()
     {
-        if (!Tenencia() && Desde.Tenencia() && input.GetLeftPressed())
+        Vector2 currentInputAxis = input.GetAxis();
+
+        if (!Tenencia() && Desde.Tenencia() && currentInputAxis.x < 0f)
         {
             PrimerPaso();
         }
-        if (Tenencia() && input.GetDownPressed())
+        if (Tenencia() && currentInputAxis.y < 0f)
         {
             SegundoPaso();
         }
-        if (segundoCompleto && Tenencia() && input.GetRightPressed())
+        if (segundoCompleto && Tenencia() && currentInputAxis.x > 0f)
         {
             TercerPaso();
         }

@@ -102,40 +102,13 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""MoveUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""4f74bcdb-c3dc-49c3-8e17-4d50f3ee7174"",
-                    ""expectedControlType"": """",
+                    ""name"": ""Axis"",
+                    ""type"": ""Value"",
+                    ""id"": ""63653fd9-8407-4c51-a001-4a4ac01e510b"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MoveDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""c4314344-2c12-4463-948a-11c3a2e2e645"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MoveLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""9e73aa55-21e8-449d-b708-4b32556502e5"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MoveRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""b3897b15-ffe2-4aac-84ff-edabfac9196d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -228,90 +201,134 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""890a2f41-3b04-4538-9787-6a4d84a7b525"",
+                    ""name"": ""PC_Left"",
+                    ""id"": ""13eaf864-3508-4ede-9d57-94d2d846c689"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Axis"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""58592d91-379d-4e7e-bcfa-fcae85cd024f"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";LeftPlayer"",
-                    ""action"": ""MoveUp"",
+                    ""action"": ""Axis"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""7c2e250f-ddb3-4358-9354-f1ce72bc95ca"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";RightPlayer"",
-                    ""action"": ""MoveUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0c863687-4275-4e99-a168-8c9c704407dd"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";LeftPlayer"",
-                    ""action"": ""MoveLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ec828827-ee35-41d7-bb5e-f521651707d2"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";RightPlayer"",
-                    ""action"": ""MoveLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0d105727-c950-45f0-a199-4b517a96cb2a"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";LeftPlayer"",
-                    ""action"": ""MoveRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d0ad59e3-c8e5-4adb-a571-4f8a8b25becc"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";RightPlayer"",
-                    ""action"": ""MoveRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""aaee1ead-fe12-4e18-b903-ea6380d2edab"",
+                    ""name"": ""down"",
+                    ""id"": ""c5539bad-1181-4386-aadb-658f59dee9e7"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";LeftPlayer"",
-                    ""action"": ""MoveDown"",
+                    ""action"": ""Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""41ac50aa-ab1c-4113-88eb-3b11d3734493"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";LeftPlayer"",
+                    ""action"": ""Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""16e3fe62-3b37-4b67-ba35-57fe1d340cf3"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";LeftPlayer"",
+                    ""action"": ""Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""PC_Right"",
+                    ""id"": ""bb7761fe-8719-40b2-97e4-01a2d42ba286"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Axis"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""2b83930e-5f5b-4708-a09c-ff7670687174"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";RightPlayer"",
+                    ""action"": ""Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""7501aa86-cbce-488a-a752-483990b7bf16"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";RightPlayer"",
+                    ""action"": ""Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4d817213-ceee-4f60-9ac7-eec0979a9cff"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";RightPlayer"",
+                    ""action"": ""Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""859dd709-30ad-41ee-afdf-6ed4eb4597d3"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Axis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2c88b28-e2ff-4752-8f8a-5fca62d5bffc"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";LeftPlayer"",
+                    ""action"": ""Axis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ec11f6da-ce69-4162-a160-896d345f2050"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""id"": ""cba3283d-76b3-49a8-8116-685e1e625dd7"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";RightPlayer"",
-                    ""action"": ""MoveDown"",
+                    ""action"": ""Axis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -350,10 +367,7 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Steering = m_Player.FindAction("Steering", throwIfNotFound: true);
-        m_Player_MoveUp = m_Player.FindAction("MoveUp", throwIfNotFound: true);
-        m_Player_MoveDown = m_Player.FindAction("MoveDown", throwIfNotFound: true);
-        m_Player_MoveLeft = m_Player.FindAction("MoveLeft", throwIfNotFound: true);
-        m_Player_MoveRight = m_Player.FindAction("MoveRight", throwIfNotFound: true);
+        m_Player_Axis = m_Player.FindAction("Axis", throwIfNotFound: true);
     }
 
     ~@InputClass()
@@ -435,10 +449,7 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Steering;
-    private readonly InputAction m_Player_MoveUp;
-    private readonly InputAction m_Player_MoveDown;
-    private readonly InputAction m_Player_MoveLeft;
-    private readonly InputAction m_Player_MoveRight;
+    private readonly InputAction m_Player_Axis;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -455,21 +466,9 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Steering => m_Wrapper.m_Player_Steering;
         /// <summary>
-        /// Provides access to the underlying input action "Player/MoveUp".
+        /// Provides access to the underlying input action "Player/Axis".
         /// </summary>
-        public InputAction @MoveUp => m_Wrapper.m_Player_MoveUp;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/MoveDown".
-        /// </summary>
-        public InputAction @MoveDown => m_Wrapper.m_Player_MoveDown;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/MoveLeft".
-        /// </summary>
-        public InputAction @MoveLeft => m_Wrapper.m_Player_MoveLeft;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/MoveRight".
-        /// </summary>
-        public InputAction @MoveRight => m_Wrapper.m_Player_MoveRight;
+        public InputAction @Axis => m_Wrapper.m_Player_Axis;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -499,18 +498,9 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
             @Steering.started += instance.OnSteering;
             @Steering.performed += instance.OnSteering;
             @Steering.canceled += instance.OnSteering;
-            @MoveUp.started += instance.OnMoveUp;
-            @MoveUp.performed += instance.OnMoveUp;
-            @MoveUp.canceled += instance.OnMoveUp;
-            @MoveDown.started += instance.OnMoveDown;
-            @MoveDown.performed += instance.OnMoveDown;
-            @MoveDown.canceled += instance.OnMoveDown;
-            @MoveLeft.started += instance.OnMoveLeft;
-            @MoveLeft.performed += instance.OnMoveLeft;
-            @MoveLeft.canceled += instance.OnMoveLeft;
-            @MoveRight.started += instance.OnMoveRight;
-            @MoveRight.performed += instance.OnMoveRight;
-            @MoveRight.canceled += instance.OnMoveRight;
+            @Axis.started += instance.OnAxis;
+            @Axis.performed += instance.OnAxis;
+            @Axis.canceled += instance.OnAxis;
         }
 
         /// <summary>
@@ -525,18 +515,9 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
             @Steering.started -= instance.OnSteering;
             @Steering.performed -= instance.OnSteering;
             @Steering.canceled -= instance.OnSteering;
-            @MoveUp.started -= instance.OnMoveUp;
-            @MoveUp.performed -= instance.OnMoveUp;
-            @MoveUp.canceled -= instance.OnMoveUp;
-            @MoveDown.started -= instance.OnMoveDown;
-            @MoveDown.performed -= instance.OnMoveDown;
-            @MoveDown.canceled -= instance.OnMoveDown;
-            @MoveLeft.started -= instance.OnMoveLeft;
-            @MoveLeft.performed -= instance.OnMoveLeft;
-            @MoveLeft.canceled -= instance.OnMoveLeft;
-            @MoveRight.started -= instance.OnMoveRight;
-            @MoveRight.performed -= instance.OnMoveRight;
-            @MoveRight.canceled -= instance.OnMoveRight;
+            @Axis.started -= instance.OnAxis;
+            @Axis.performed -= instance.OnAxis;
+            @Axis.canceled -= instance.OnAxis;
         }
 
         /// <summary>
@@ -611,32 +592,11 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSteering(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "MoveUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Axis" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMoveUp(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "MoveDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMoveDown(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "MoveLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMoveLeft(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "MoveRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMoveRight(InputAction.CallbackContext context);
+        void OnAxis(InputAction.CallbackContext context);
     }
 }

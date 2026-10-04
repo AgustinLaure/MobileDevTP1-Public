@@ -12,23 +12,8 @@ public class InputSystemController : BaseInputController
         return inputClass.Player.Steering.ReadValue<float>();
     }
 
-    public override bool GetUpPressed()
+    public override Vector2 GetAxis()
     {
-        return inputClass.Player.MoveUp.IsPressed();
-    }
-
-    public override bool GetDownPressed()
-    {
-        return inputClass.Player.MoveDown.IsPressed();
-    }
-
-    public override bool GetLeftPressed()
-    {
-        return inputClass.Player.MoveLeft.IsPressed();
-    }
-
-    public override bool GetRightPressed()
-    {
-        return inputClass.Player.MoveRight.IsPressed();
+        return inputClass.Player.Axis.ReadValue<Vector2>();
     }
 }

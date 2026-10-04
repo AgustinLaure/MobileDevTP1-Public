@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         {
             Bolasas[CantBolsAct] = b;
             CantBolsAct++;
-            AddMoney((int)b.Monto);
+            AddMoney((int)b.Monto + (int)b.Monto - (int)b.Monto / (int)(DatosPartida.difficulty + 1));
 
             b.Desaparecer();
 

@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -84,6 +87,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject driveCamera2;
 
+    [SerializeField] private AssetReference easyObstacleLayoutPrefab;
+    [SerializeField] private AssetReference mediumObstacleLayoutPrefab;
+    [SerializeField] private AssetReference hardObstacleLayoutPrefab;
+    [SerializeField] private Transform obstaclesPos;
+
+    private GameObject currentObstacle;
+
     //--------------------------------------------------------//
 
     void Awake()
@@ -93,6 +103,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SpawnObstacles();
+
         //IniciarCalibracion();
 
         eventBus = ServiceLocator.Instance.GetService<EventBus>();
@@ -282,9 +294,50 @@ public class GameManager : MonoBehaviour
 
                 TiempEspMuestraPts -= Time.deltaTime;
                 if (TiempEspMuestraPts <= 0)
-                    Application.LoadLevel(Application.loadedLevel + 1);
+                    ClearObstacles();
+                Application.LoadLevel(Application.loadedLevel + 1);
 
                 break;
+        }
+    }
+
+    public async void SpawnObstacles()
+    {
+        AsyncOperationHandle<GameObject> handler = default;
+
+        switch (DatosPartida.difficulty)
+        {
+            case Difficulty.Easy:
+                handler = easyObstacleLayoutPrefab.InstantiateAsync(obstaclesPos.position, Quaternion.identity);
+                break;
+            case Difficulty.Medium:
+                handler = mediumObstacleLayoutPrefab.InstantiateAsync(obstaclesPos.position, Quaternion.identity);
+                break;
+            case Difficulty.Hard:
+                handler = hardObstacleLayoutPrefab.InstantiateAsync(obstaclesPos.position, Quaternion.identity);
+                break;
+            default:
+                break;
+        }
+
+        currentObstacle = await handler.Task;
+
+        if (handler.Status == AsyncOperationStatus.Succeeded)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+    public void ClearObstacles()
+    {
+        if (currentObstacle != null)
+        {
+            Addressables.ReleaseInstance(currentObstacle);
+            currentObstacle = null;
         }
     }
 

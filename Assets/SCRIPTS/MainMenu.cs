@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private Button playMultiplayerButton;
     [SerializeField] private Button creditsButton;
+    [SerializeField] private Button exitButton;
 
     [SerializeField] private Button backButton;
 
@@ -25,6 +26,7 @@ public class MainMenu : MonoBehaviour
         playButton.onClick.AddListener(HandlePlayButton);
         playMultiplayerButton.onClick.AddListener(HandlePlayMultiplayerButton);
         creditsButton.onClick.AddListener(HandleCreditsButton);
+        exitButton.onClick.AddListener(HandleExitButton);
 
         backButton.onClick.AddListener(HandleCreditsBackButton);
 
@@ -36,6 +38,10 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         eventBus = ServiceLocator.Instance.GetService<EventBus>();
+
+#if UNITY_STANDALONE || UNITY_EDITOR
+        exitButton.gameObject.SetActive(true);
+#endif
     }
 
     private void HandlePlayButton()
@@ -61,6 +67,15 @@ public class MainMenu : MonoBehaviour
     {
         UIUtils.SetCanvasState(creditsCG, false);
         UIUtils.SetCanvasState(menuCG, true);
+    }
+
+    private void HandleExitButton()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     private void HandleEasyButton()
@@ -94,6 +109,7 @@ public class MainMenu : MonoBehaviour
         playButton.onClick.RemoveListener(HandlePlayButton);
         playMultiplayerButton.onClick.RemoveListener(HandlePlayMultiplayerButton);
         creditsButton.onClick.RemoveListener(HandleCreditsButton);
+        exitButton.onClick.RemoveListener(HandleExitButton);
 
         backButton.onClick.RemoveListener(HandleCreditsBackButton);
 

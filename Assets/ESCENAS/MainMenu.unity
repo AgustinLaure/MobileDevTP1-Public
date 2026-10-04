@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4772302
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2184,6 +2184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc12cdc571df4bf40bc4f0ad511050a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  fadePrefab: {fileID: 5557643282318493398, guid: a35b8de186eaec8448ea1961fd390cee,
+    type: 3}
   menuCG: {fileID: 1948058398}
   creditsCG: {fileID: 1533185389}
   difficultyCG: {fileID: 1790606025}

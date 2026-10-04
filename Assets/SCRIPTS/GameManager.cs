@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject currentObstacle;
 
+    private const string finalSceneName = "PtsFinal";
+
     //--------------------------------------------------------//
 
     void Awake()
@@ -295,7 +297,7 @@ public class GameManager : MonoBehaviour
                 TiempEspMuestraPts -= Time.deltaTime;
                 if (TiempEspMuestraPts <= 0)
                     ClearObstacles();
-                Application.LoadLevel(Application.loadedLevel + 1);
+                ServiceLocator.Instance.GetService<SceneLoader>().LoadScene(finalSceneName,false);
 
                 break;
         }
@@ -740,7 +742,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void FinCalibracion(int playerID) //
+    public void FinCalibracion(int playerID)
     {
         if (DatosPartida.isSinglePlayer)
         {

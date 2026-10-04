@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private GameObject fadePrefab;
+
     [SerializeField] private CanvasGroup menuCG;
     [SerializeField] private CanvasGroup creditsCG;
     [SerializeField] private CanvasGroup difficultyCG;
@@ -20,6 +23,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button hardButton;
 
     private EventBus eventBus;
+
+    private const string gameplaySceneName = "conduccion9";
 
     private void OnEnable()
     {
@@ -42,6 +47,10 @@ public class MainMenu : MonoBehaviour
 #if UNITY_STANDALONE || UNITY_EDITOR
         exitButton.gameObject.SetActive(true);
 #endif
+
+        GameObject fade = Instantiate(fadePrefab);
+        DontDestroyOnLoad(fade);
+        ServiceLocator.Instance.AddService<SceneLoader>(fade.GetComponent<SceneLoader>());
     }
 
     private void HandlePlayButton()
@@ -101,7 +110,7 @@ public class MainMenu : MonoBehaviour
 
     private void Play()
     {
-        Application.LoadLevel(1);
+        ServiceLocator.Instance.GetService<SceneLoader>().LoadScene(gameplaySceneName, true);
     }
 
     private void OnDisable()

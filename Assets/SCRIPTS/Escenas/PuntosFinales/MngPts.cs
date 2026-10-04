@@ -48,6 +48,8 @@ public class MngPts : MonoBehaviour
     private const string soloHighestBeaten = "YOU SET A NEW HIGHSCORE";
     private const string soloHighestNotBeaten = "BETTER LUCK NEXT TIME";
 
+    private const string mainMenuSceneName = "MainMenu";
+
     // Use this for initialization
     void Start()
     {
@@ -88,7 +90,7 @@ public class MngPts : MonoBehaviour
         TiempEspReiniciar -= Time.deltaTime;
         if (TiempEspReiniciar <= 0)
         {
-            UnityEngine.Application.LoadLevel(0);
+            ServiceLocator.Instance.GetService<SceneLoader>().LoadScene(mainMenuSceneName, false);
         }
 
 
@@ -139,7 +141,7 @@ public class MngPts : MonoBehaviour
             SetCartelGanador();
         }
 
-        GUI.skin = null;
+        //GUI.skin = null;
     }
 
     //---------------------------------//
@@ -303,7 +305,7 @@ public class MngPts : MonoBehaviour
 
     public void DesaparecerGUI()
     {
-        ActivadoAnims = false;
+       ActivadoAnims = false;
         Tempo = -100;
     }
 }

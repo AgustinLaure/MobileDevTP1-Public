@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PcInput : BaseInputController
+public class InputSystemController : BaseInputController
 {
-    public PcInput(string mask) : base(mask)
+    public InputSystemController(string mask) : base(mask)
     {
 
     }

@@ -140,7 +140,7 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""LeftPlayer"",
+                    ""name"": ""PC_Left"",
                     ""id"": ""51663343-5c09-4394-b861-11d7b8b4b392"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -173,7 +173,7 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""LeftPlayer"",
+                    ""name"": ""PC_Right"",
                     ""id"": ""f368cb6b-c4ab-4c05-a6dc-e23276a41064"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -204,6 +204,28 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
                     ""action"": ""Steering"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3aa5ba08-7710-4e37-b203-2594617a305e"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";LeftPlayer"",
+                    ""action"": ""Steering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49890fe9-82d2-4e32-862d-20ad2928e4f0"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";RightPlayer"",
+                    ""action"": ""Steering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -308,6 +330,11 @@ public partial class @InputClass: IInputActionCollection2, IDisposable
                 },
                 {
                     ""devicePath"": ""<Touchscreen>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }

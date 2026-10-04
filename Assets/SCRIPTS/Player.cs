@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         //input = new MobileInput();
 #elif UNITY_STANDALONE || UNITY_EDITOR
 
-        input = new PcInput(mask);
+        input = new InputSystemController(mask);
 #endif
     }
     void Start()

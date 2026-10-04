@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private BaseInputController input;
     [SerializeField] private string mask;
 
+    [SerializeField] private GameObject raycast;
     public BaseInputController GetInputController { get { return input; } }
 
     [SerializeField] private CanvasGroup steerWheel;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
     {
 #if UNITY_ANDROID
         UIUtils.SetCanvasState(steerWheel, true);
+        raycast.SetActive(true);
         //input = new MobileInput();
 #elif UNITY_STANDALONE || UNITY_EDITOR
 

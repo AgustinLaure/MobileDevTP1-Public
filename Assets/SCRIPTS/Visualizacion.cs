@@ -172,7 +172,9 @@ public class Visualizacion : MonoBehaviour
 
     public void CambiarAConduccion()
     {
+#if UNITY_ANDROID
         UIUtils.SetCanvasState(steerWheel, true);
+#endif
 
         CamCalibracion.enabled = false;
         CamConduccion.enabled = true;
@@ -181,7 +183,9 @@ public class Visualizacion : MonoBehaviour
 
     public void CambiarADescarga()
     {
+#if UNITY_ANDROID
         UIUtils.SetCanvasState(steerWheel, false);
+#endif
 
         CamCalibracion.enabled = false;
         CamConduccion.enabled = false;

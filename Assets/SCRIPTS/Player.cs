@@ -24,11 +24,27 @@ public class Player : MonoBehaviour
 
     private EventBus eventBus;
 
+    private BaseInputController input;
+    [SerializeField] private string mask;
+
+    public BaseInputController GetInputController { get { return input; } }
+
     //------------------------------------------------------------------//
 
     // Use this for initialization
+
+    private void Awake()
+    {
+#if UNITY_ANDROID
+        //input = new MobileInput();
+#elif UNITY_STANDALONE || UNITY_EDITOR
+
+        input = new PcInput(mask);
+#endif
+    }
     void Start()
     {
+
         for (int i = 0; i < Bolasas.Length; i++)
             Bolasas[i] = null;
 

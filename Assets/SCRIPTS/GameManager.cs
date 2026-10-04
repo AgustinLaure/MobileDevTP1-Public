@@ -139,18 +139,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //REINICIAR
-        if (Input.GetKey(KeyCode.Mouse1) &&
-           Input.GetKey(KeyCode.Keypad0))
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
+        //if (Input.GetKey(KeyCode.Mouse1) &&
+        //   Input.GetKey(KeyCode.Keypad0))
+        //{
+        //    Application.LoadLevel(Application.loadedLevel);
+        //}
 
         //CIERRA LA APLICACION
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    Application.Quit();
+        //}
 
         switch (EstAct)
         {
@@ -226,11 +225,11 @@ public class GameManager : MonoBehaviour
             case EstadoJuego.Jugando:
 
                 //SKIP LA CARRERA
-                if (Input.GetKey(KeyCode.Mouse1) &&
-                   Input.GetKey(KeyCode.Keypad0))
-                {
-                    TiempoDeJuego = 0;
-                }
+                //if (Input.GetKey(KeyCode.Mouse1) &&
+                //   Input.GetKey(KeyCode.Keypad0))
+                //{
+                //    TiempoDeJuego = 0;
+                //}
 
                 if (TiempoDeJuego <= 0)
                 {

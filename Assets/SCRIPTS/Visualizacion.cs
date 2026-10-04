@@ -392,27 +392,27 @@ public class Visualizacion : MonoBehaviour
 
     void SetVolante()
     {
-        GUI.skin = GS_Volante;
-
-        R.width = VolanteEsc * UnityEngine.Screen.width / 100;
-        R.height = VolanteEsc * UnityEngine.Screen.width / 100;
-        R.x = VolantePos[0].x * UnityEngine.Screen.width / 100;
-        R.y = VolantePos[0].y * UnityEngine.Screen.height / 100;
-
-        if (LadoAct == Visualizacion.Lado.Der)
-            R.x = VolantePos[1].x * UnityEngine.Screen.width / 100;
-        //R.x = (Screen.width) - ((Screen.width/2) - R.x);
-
-        Vector2 centro;
-        centro.x = R.x + R.width / 2;
-        centro.y = R.y + R.height / 2;
-        float angulo = 100 * Direccion.GetGiro();
-
-        GUIUtility.RotateAroundPivot(angulo, centro);
-
-        GUI.Box(R, "");
-
-        GUIUtility.RotateAroundPivot(angulo * (-1), centro);
+        //GUI.skin = GS_Volante;
+        //
+        //R.width = VolanteEsc * UnityEngine.Screen.width / 100;
+        //R.height = VolanteEsc * UnityEngine.Screen.width / 100;
+        //R.x = VolantePos[0].x * UnityEngine.Screen.width / 100;
+        //R.y = VolantePos[0].y * UnityEngine.Screen.height / 100;
+        //
+        //if (LadoAct == Visualizacion.Lado.Der)
+        //    R.x = VolantePos[1].x * UnityEngine.Screen.width / 100;
+        ////R.x = (Screen.width) - ((Screen.width/2) - R.x);
+        //
+        //Vector2 centro;
+        //centro.x = R.x + R.width / 2;
+        //centro.y = R.y + R.height / 2;
+        //float angulo = 100 * Direccion.GetGiro();
+        //
+        //GUIUtility.RotateAroundPivot(angulo, centro);
+        //
+        //GUI.Box(R, "");
+        //
+        //GUIUtility.RotateAroundPivot(angulo * (-1), centro);
     }
 
     void SetInv2()

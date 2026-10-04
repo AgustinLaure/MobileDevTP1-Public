@@ -39,7 +39,7 @@ public class UnloadSceneManager : MonoBehaviour
             {
                 UIUtils.SetCanvasState(canvas, true);
 
-                if (animationCoroutine == null)
+                if (animationCoroutine == null && gameObject.activeSelf)
                 {
                     isAnimating = true;
                     animationCoroutine = StartCoroutine(AnimationCoroutine());

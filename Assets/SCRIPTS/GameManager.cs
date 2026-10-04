@@ -1,5 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using static GameManager;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : MonoBehaviour
 {
@@ -71,6 +73,19 @@ public class GameManager : MonoBehaviour
 
     IList<int> users;
 
+    private EventBus eventBus;
+
+    [SerializeField] private GameObject truck2;
+    [SerializeField] private Camera driveCamera1;
+    [SerializeField] private Camera uiDriveCamera1;
+    [SerializeField] private Camera unloadCamera1;
+    [SerializeField] private Camera uiUnloadCamera1;
+
+    [SerializeField] private GameObject uiDriveCamera2;
+    [SerializeField] private GameObject uiUnloadCamera2;
+
+    [SerializeField] private GameObject driveCamera2;
+
     //--------------------------------------------------------//
 
     void Awake()
@@ -80,7 +95,41 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        IniciarCalibracion();
+        //IniciarCalibracion();
+
+        eventBus = ServiceLocator.Instance.GetService<EventBus>();
+
+        if (DatosPartida.isSinglePlayer)
+        {
+            truck2.SetActive(false);
+            driveCamera2.SetActive(false);
+            driveCamera1.rect = new Rect(0, 0, 1f, 1f);
+            uiDriveCamera1.rect = new Rect(0, 0, 1f, 1f);
+            unloadCamera1.rect = new Rect(0, 0, 1f, 1f);
+            uiUnloadCamera1.rect = new Rect(0, 0, 1f, 1f);
+
+            uiDriveCamera2.SetActive(false);
+            uiUnloadCamera2.SetActive(false);
+        }
+
+        CambiarATutorial();
+
+        if (PlayerInfo1.PJ == null)
+        {
+            PlayerInfo1 = new PlayerInfo(0, Player1);
+            PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+            SetPosicion(PlayerInfo1);
+        }
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            if (PlayerInfo2.PJ == null)
+            {
+                PlayerInfo2 = new PlayerInfo(1, Player2);
+                PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+                SetPosicion(PlayerInfo2);
+            }
+        }
 
         //para testing
         //PosCamionesCarrera[0].x+=100;
@@ -107,42 +156,69 @@ public class GameManager : MonoBehaviour
         {
             case EstadoJuego.Calibrando:
 
-                //SKIP EL TUTORIAL
-                if (Input.GetKey(KeyCode.Mouse0) &&
-                   Input.GetKey(KeyCode.Keypad0))
-                {
-                    if (PlayerInfo1 != null && PlayerInfo2 != null)
-                    {
-                        FinCalibracion(0);
-                        FinCalibracion(1);
+                //if (PlayerInfo1 != null)
+                //{
+                //    FinTutorial(0);
+                //}
+                //if (!DatosPartida.isSinglePlayer)
+                //{
+                //    if (PlayerInfo2 != null)
+                //    {
+                //        FinTutorial(1);
+                //    }
+                //}
 
-                        FinTutorial(0);
-                        FinTutorial(1);
+                //SKIP EL TUTORIAL
+                //if (Input.GetKey(KeyCode.Mouse0) &&
+                //   Input.GetKey(KeyCode.Keypad0))
+                //{
+                //    if (PlayerInfo1 != null && PlayerInfo2 != null)
+                //    {
+                //        FinCalibracion(0);
+                //        FinCalibracion(1);
+                //
+                //        FinTutorial(0);
+                //        FinTutorial(1);
+                //    }
+                //}
+                //
+                //
+                //if (PlayerInfo1.PJ == null)
+                //{
+                //    PlayerInfo1 = new PlayerInfo(0, Player1);
+                //    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+                //    SetPosicion(PlayerInfo1);
+                //}
+                //
+                //if (!DatosPartida.isSinglePlayer)
+                //{
+                //    if (PlayerInfo2.PJ == null)
+                //    {
+                //        PlayerInfo2 = new PlayerInfo(1, Player2);
+                //        PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+                //        SetPosicion(PlayerInfo2);
+                //    }
+                //}
+
+                if (!DatosPartida.isSinglePlayer)
+                {
+                    //cuando los 2 pj terminaron los tutoriales empiesa la carrera
+                    if (PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
+                    {
+                        if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+                        {
+                            EmpezarCarrera();
+                        }
                     }
                 }
-
-                if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W))
+                else
                 {
-                    PlayerInfo1 = new PlayerInfo(0, Player1);
-                    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
-                    SetPosicion(PlayerInfo1);
-                }
-
-                if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    PlayerInfo2 = new PlayerInfo(1, Player2);
-                    PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
-                    SetPosicion(PlayerInfo2);
-                }
-
-                //cuando los 2 pj terminaron los tutoriales empiesa la carrera
-                if (PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
-                {
-                    if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+                    if (PlayerInfo1.PJ != null && (PlayerInfo1.FinTuto2))
                     {
                         EmpezarCarrera();
                     }
                 }
+
 
                 break;
 
@@ -274,7 +350,11 @@ public class GameManager : MonoBehaviour
 
 
         Player1.CambiarACalibracion();
-        Player2.CambiarACalibracion();
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.CambiarACalibracion();
+        }
     }
 
     /*
@@ -311,34 +391,40 @@ public class GameManager : MonoBehaviour
         Player1.gameObject.transform.position = PosCamion1Tuto;//posiciona el camion
         Player1.transform.forward = Vector3.forward;
 
-
-        PlayerInfo2.FinCalibrado = true;
-
-        for (int i = 0; i < ObjsCalibracion2.Length; i++)
+        if (!DatosPartida.isSinglePlayer)
         {
-            ObjsCalibracion2[i].SetActiveRecursively(false);
-        }
+            PlayerInfo2.FinCalibrado = true;
 
-        for (int i = 0; i < ObjsTuto2.Length; i++)
-        {
-            ObjsTuto2[i].SetActiveRecursively(true);
+            for (int i = 0; i < ObjsCalibracion2.Length; i++)
+            {
+                ObjsCalibracion2[i].SetActiveRecursively(false);
+            }
+
+            for (int i = 0; i < ObjsTuto2.Length; i++)
+            {
+                ObjsTuto2[i].SetActiveRecursively(true);
+            }
+            Player2.GetComponent<Frenado>().Frenar();
+            Player2.gameObject.transform.position = PosCamion2Tuto;
+            Player2.CambiarATutorial();
+            Player2.transform.forward = Vector3.forward;
         }
-        Player2.GetComponent<Frenado>().Frenar();
-        Player2.gameObject.transform.position = PosCamion2Tuto;
-        Player2.CambiarATutorial();
-        Player2.transform.forward = Vector3.forward;
     }
 
     void EmpezarCarrera()
     {
+
         leftCameraHUD.SetActive(true);
         rightCameraHUD.SetActive(true);
 
         Player1.GetComponent<Frenado>().RestaurarVel();
         Player1.GetComponent<ControlDireccion>().Habilitado = true;
 
-        Player2.GetComponent<Frenado>().RestaurarVel();
-        Player2.GetComponent<ControlDireccion>().Habilitado = true;
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.GetComponent<Frenado>().RestaurarVel();
+            Player2.GetComponent<ControlDireccion>().Habilitado = true;
+        }
     }
 
     void FinalizarCarrera()
@@ -350,36 +436,63 @@ public class GameManager : MonoBehaviour
 
         TiempoDeJuego = 0;
 
-        if (Player1.Dinero > Player2.Dinero)
+        if (DatosPartida.isSinglePlayer)
         {
-            //lado que gano
-            if (PlayerInfo1.LadoAct == Visualizacion.Lado.Der)
-                DatosPartida.LadoGanadaor = DatosPartida.Lados.Der;
-            else
+            if (Player1.Dinero > DatosPartida.highestScore)
+            {
                 DatosPartida.LadoGanadaor = DatosPartida.Lados.Izq;
+                DatosPartida.PtsGanador = Player1.Dinero;
 
-            //puntajes
-            DatosPartida.PtsGanador = Player1.Dinero;
-            DatosPartida.PtsPerdedor = Player2.Dinero;
+                DatosPartida.PtsPerdedor = DatosPartida.highestScore;
+            }
+            else
+            {
+                DatosPartida.LadoGanadaor = DatosPartida.Lados.Der;
+                DatosPartida.PtsGanador = DatosPartida.highestScore;
+                DatosPartida.PtsPerdedor = Player1.Dinero;
+            }
         }
         else
         {
-            //lado que gano
-            if (PlayerInfo2.LadoAct == Visualizacion.Lado.Der)
-                DatosPartida.LadoGanadaor = DatosPartida.Lados.Der;
-            else
-                DatosPartida.LadoGanadaor = DatosPartida.Lados.Izq;
+            if (Player1.Dinero > Player2.Dinero)
+            {
+                //lado que gano
+                if (PlayerInfo1.LadoAct == Visualizacion.Lado.Der)
+                    DatosPartida.LadoGanadaor = DatosPartida.Lados.Der;
+                else
+                    DatosPartida.LadoGanadaor = DatosPartida.Lados.Izq;
 
-            //puntajes
-            DatosPartida.PtsGanador = Player2.Dinero;
-            DatosPartida.PtsPerdedor = Player1.Dinero;
+                //puntajes
+                DatosPartida.PtsGanador = Player1.Dinero;
+                DatosPartida.PtsPerdedor = Player2.Dinero;
+            }
+            else
+            {
+                //lado que gano
+                if (PlayerInfo2.LadoAct == Visualizacion.Lado.Der)
+                    DatosPartida.LadoGanadaor = DatosPartida.Lados.Der;
+                else
+                    DatosPartida.LadoGanadaor = DatosPartida.Lados.Izq;
+
+                //puntajes
+                DatosPartida.PtsGanador = Player2.Dinero;
+                DatosPartida.PtsPerdedor = Player1.Dinero;
+            }
         }
 
         Player1.GetComponent<Frenado>().Frenar();
-        Player2.GetComponent<Frenado>().Frenar();
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.GetComponent<Frenado>().Frenar();
+        }
 
         Player1.ContrDesc.FinDelJuego();
-        Player2.ContrDesc.FinDelJuego();
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.ContrDesc.FinDelJuego();
+        }
     }
 
     /*
@@ -406,20 +519,26 @@ public class GameManager : MonoBehaviour
         pjInf.PJ.ContrCalib.IniciarTesteo();
         PosSeteada = true;
 
-
-        if (pjInf.PJ == Player1)
+        if (DatosPartida.isSinglePlayer)
         {
-            if (pjInf.LadoAct == Visualizacion.Lado.Izq)
-                Player2.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Der);
-            else
-                Player2.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
+            Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
         }
         else
         {
-            if (pjInf.LadoAct == Visualizacion.Lado.Izq)
-                Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Der);
+            if (pjInf.PJ == Player1)
+            {
+                if (pjInf.LadoAct == Visualizacion.Lado.Izq)
+                    Player2.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Der);
+                else
+                    Player2.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
+            }
             else
-                Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
+            {
+                if (pjInf.LadoAct == Visualizacion.Lado.Izq)
+                    Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Der);
+                else
+                    Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
+            }
         }
 
     }
@@ -458,16 +577,19 @@ public class GameManager : MonoBehaviour
             ObjsCalibracion1[i].SetActiveRecursively(false);
         }
 
-        PlayerInfo2.FinCalibrado = true;
-
-        for (int i = 0; i < ObjsCalibracion2.Length; i++)
+        if (!DatosPartida.isSinglePlayer)
         {
-            ObjsCalibracion2[i].SetActiveRecursively(false);
-        }
+            PlayerInfo2.FinCalibrado = true;
 
-        for (int i = 0; i < ObjsTuto2.Length; i++)
-        {
-            ObjsTuto2[i].SetActiveRecursively(true);
+            for (int i = 0; i < ObjsCalibracion2.Length; i++)
+            {
+                ObjsCalibracion2[i].SetActiveRecursively(false);
+            }
+
+            for (int i = 0; i < ObjsTuto2.Length; i++)
+            {
+                ObjsTuto2[i].SetActiveRecursively(true);
+            }
         }
 
 
@@ -477,40 +599,70 @@ public class GameManager : MonoBehaviour
         if (PlayerInfo1.LadoAct == Visualizacion.Lado.Izq)
         {
             Player1.gameObject.transform.position = PosCamionesCarrera[0];
-            Player2.gameObject.transform.position = PosCamionesCarrera[1];
+
+            if (!DatosPartida.isSinglePlayer)
+            {
+                Player2.gameObject.transform.position = PosCamionesCarrera[1];
+            }
         }
         else
         {
             Player1.gameObject.transform.position = PosCamionesCarrera[1];
-            Player2.gameObject.transform.position = PosCamionesCarrera[0];
+
+            if (!DatosPartida.isSinglePlayer)
+            {
+                Player2.gameObject.transform.position = PosCamionesCarrera[0];
+            }
         }
 
         Player1.transform.forward = Vector3.forward;
         Player1.GetComponent<Frenado>().Frenar();
         Player1.CambiarAConduccion();
 
-        Player2.transform.forward = Vector3.forward;
-        Player2.GetComponent<Frenado>().Frenar();
-        Player2.CambiarAConduccion();
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.transform.forward = Vector3.forward;
+            Player2.GetComponent<Frenado>().Frenar();
+            Player2.CambiarAConduccion();
+        }
 
         //los deja andando
         Player1.GetComponent<Frenado>().RestaurarVel();
-        Player2.GetComponent<Frenado>().RestaurarVel();
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.GetComponent<Frenado>().RestaurarVel();
+        }
+
         //cancela la direccion
         Player1.GetComponent<ControlDireccion>().Habilitado = false;
-        Player2.GetComponent<ControlDireccion>().Habilitado = false;
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.GetComponent<ControlDireccion>().Habilitado = false;
+        }
         //les de direccion
         Player1.transform.forward = Vector3.forward;
-        Player2.transform.forward = Vector3.forward;
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.transform.forward = Vector3.forward;
+        }
 
         EstAct = GameManager.EstadoJuego.Jugando;
 
         Player1.Dinero = 0;
-        Player2.Dinero = 0;
+
+        if (!DatosPartida.isSinglePlayer)
+        {
+            Player2.Dinero = 0;
+        }
     }
 
     public void FinTutorial(int playerID)
     {
+        eventBus.Raise<OnPlayerMoneyUpdated>(Player1, 0);
+
         if (playerID == 0)
         {
             PlayerInfo1.FinTuto2 = true;
@@ -520,34 +672,58 @@ public class GameManager : MonoBehaviour
             PlayerInfo2.FinTuto2 = true;
         }
 
-        if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+        if (DatosPartida.isSinglePlayer)
         {
-            CambiarACarrera();
+            if (PlayerInfo1.FinTuto2)
+            {
+                CambiarACarrera();
+            }
+        }
+        else
+        {
+            if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+            {
+                eventBus.Raise<OnPlayerMoneyUpdated>(Player2, 0);
+
+                CambiarACarrera();
+            }
         }
     }
 
-    public void FinCalibracion(int playerID)
+    public void FinCalibracion(int playerID) //
     {
-        if (playerID == 0)
+        if (DatosPartida.isSinglePlayer)
         {
-            PlayerInfo1.FinTuto1 = true;
+            if (PlayerInfo1.PJ != null)
+            {
+                CambiarATutorial();
+            }
 
+            if (PlayerInfo1.FinTuto1)
+            {
+                CambiarACarrera();
+            }
         }
-        else if (playerID == 1)
+        else
         {
-            PlayerInfo2.FinTuto1 = true;
+            if (playerID == 0)
+            {
+                PlayerInfo1.FinTuto1 = true;
+            }
+            else if (playerID == 1)
+            {
+                PlayerInfo2.FinTuto1 = true;
+            }
+
+            if (PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
+            {
+                CambiarATutorial();
+
+            }
+            if (PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
+                CambiarACarrera();
         }
-
-        if (PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
-        {
-            CambiarATutorial();
-
-        }
-        if (PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
-            CambiarACarrera();
-
     }
-
 
 
 

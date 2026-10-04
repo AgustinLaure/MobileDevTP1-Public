@@ -184,16 +184,6 @@ public class MngPts : MonoBehaviour
 
     void SetGanador()
     {
-        if (DatosPartida.highestScore > DatosPartida.PtsGanador)
-        {
-            DatosPartida.LadoGanadaor = DatosPartida.Lados.Der;
-            DatosPartida.PtsGanador = DatosPartida.highestScore;
-        }
-        else
-        {
-            DatosPartida.LadoGanadaor = DatosPartida.Lados.Izq;
-        }
-
         switch (DatosPartida.LadoGanadaor)
         {
             case DatosPartida.Lados.Der:

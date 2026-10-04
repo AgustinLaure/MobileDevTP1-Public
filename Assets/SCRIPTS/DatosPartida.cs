@@ -5,7 +5,7 @@ public class DatosPartida
 {
     public static float TiempoDeJuego;
 
-
+    public static Difficulty difficulty;
     public enum Lados { Izq, Der }
     public static Lados LadoGanadaor;
     public static int PtsGanador;
@@ -18,7 +18,7 @@ public class DatosPartida
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void LoadData()
     {
-       highestScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        highestScore = PlayerPrefs.GetInt(highScoreKey, 0);
     }
 
     public static int GetHighscore()

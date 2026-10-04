@@ -40,14 +40,16 @@ public class MainMenu : MonoBehaviour
 
     private void HandlePlayButton()
     {
-        UIUtils.SetCanvasState(menuCG,false);
+        UIUtils.SetCanvasState(menuCG, false);
         UIUtils.SetCanvasState(difficultyCG, true);
+        DatosPartida.isSinglePlayer = true;
     }
 
     private void HandlePlayMultiplayerButton()
     {
         UIUtils.SetCanvasState(menuCG, false);
         UIUtils.SetCanvasState(difficultyCG, true);
+        DatosPartida.isSinglePlayer = false;
     }
     private void HandleCreditsButton()
     {
@@ -64,18 +66,21 @@ public class MainMenu : MonoBehaviour
     private void HandleEasyButton()
     {
         eventBus.Raise<OnDifficultySelected>(Difficulty.Easy);
+        DatosPartida.difficulty = Difficulty.Easy;
         Play();
     }
 
     private void HandleMediumButton()
     {
         eventBus.Raise<OnDifficultySelected>(Difficulty.Medium);
+        DatosPartida.difficulty = Difficulty.Medium;
         Play();
     }
 
     private void HandleHardButton()
     {
         eventBus.Raise<OnDifficultySelected>(Difficulty.Hard);
+        DatosPartida.difficulty = Difficulty.Hard;
         Play();
     }
 

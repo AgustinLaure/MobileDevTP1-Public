@@ -38,13 +38,17 @@ public class MngPts : MonoBehaviour
     [SerializeField] private CanvasGroup winnerCG;
     [SerializeField] private TextMeshProUGUI leftSideMoney;
     [SerializeField] private TextMeshProUGUI rightSideMoney;
+    [SerializeField] private CanvasGroup rightMoneyCG;
+    [SerializeField] private CanvasGroup highestScoreCG;
+    [SerializeField] private CanvasGroup latestHighScoreCG;
 
     private const string player1Text = "PLAYER #1 ";
     private const string player2Text = "PLAYER #2 ";
 
     private const string isTheWinnerText = "IS THE WINNER";
 
-   
+    private const string soloHighestBeaten = "YOU SET A NEW HIGHSCORE";
+    private const string soloHighestNotBeaten = "BETTER LUCK NEXT TIME";
 
     // Use this for initialization
     void Start()
@@ -180,17 +184,41 @@ public class MngPts : MonoBehaviour
 
     void SetGanador()
     {
+        if (DatosPartida.highestScore > DatosPartida.PtsGanador)
+        {
+            DatosPartida.LadoGanadaor = DatosPartida.Lados.Der;
+            DatosPartida.PtsGanador = DatosPartida.highestScore;
+        }
+        else
+        {
+            DatosPartida.LadoGanadaor = DatosPartida.Lados.Izq;
+        }
+
         switch (DatosPartida.LadoGanadaor)
         {
             case DatosPartida.Lados.Der:
 
-                winner.text = player2Text + isTheWinnerText;
+                if (DatosPartida.isSinglePlayer)
+                {
+                    winner.text = soloHighestNotBeaten;
+                }
+                else
+                {
+                    winner.text = player2Text + isTheWinnerText;
+                }
 
                 break;
 
             case DatosPartida.Lados.Izq:
 
-                winner.text = player1Text + isTheWinnerText;
+                if (DatosPartida.isSinglePlayer)
+                {
+                    winner.text = soloHighestBeaten;
+                }
+                else
+                {
+                    winner.text = player1Text + isTheWinnerText;
+                }
 
                 break;
         }
@@ -198,6 +226,21 @@ public class MngPts : MonoBehaviour
 
     void SetDinero()
     {
+        UIUtils.SetCanvasState(rightMoneyCG, !DatosPartida.isSinglePlayer);
+
+        if (DatosPartida.isSinglePlayer)
+        {
+            if (DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)
+            {
+                UIUtils.SetCanvasState(highestScoreCG, true);
+            }
+            else
+            {
+                UIUtils.SetCanvasState(latestHighScoreCG, true);
+            }
+        }
+
+
         int leftTotalPoints = 0;
         int rightTotalPoints = 0;
 
@@ -215,6 +258,10 @@ public class MngPts : MonoBehaviour
         leftSideMoney.text = "$" + leftTotalPoints.ToString("N0");
         rightSideMoney.text = "$" + rightTotalPoints.ToString("N0");
 
+        if (DatosPartida.highestScore < DatosPartida.PtsGanador)
+        {
+            DatosPartida.SetHighscore(DatosPartida.PtsGanador);
+        }
 
         //GUI.skin = GS_Dinero;
         //

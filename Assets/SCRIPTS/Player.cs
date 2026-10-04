@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     public BaseInputController GetInputController { get { return input; } }
 
+    [SerializeField] private CanvasGroup steerWheel;
+
     //------------------------------------------------------------------//
 
     // Use this for initialization
@@ -36,11 +38,12 @@ public class Player : MonoBehaviour
     private void Awake()
     {
 #if UNITY_ANDROID
+        UIUtils.SetCanvasState(steerWheel, true);
         //input = new MobileInput();
 #elif UNITY_STANDALONE || UNITY_EDITOR
 
-        input = new InputSystemController(mask);
 #endif
+        input = new InputSystemController(mask);
     }
     void Start()
     {

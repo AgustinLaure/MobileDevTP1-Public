@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -97,7 +96,7 @@ public class Visualizacion : MonoBehaviour
     [SerializeField] private CanvasGroup bonusCG;
     [SerializeField] private Image bonusFiller;
     [SerializeField] private TextMeshProUGUI bonusMoney;
-
+    [SerializeField] private CanvasGroup steerWheel;
     //------------------------------------------------------------------//
 
     // Use this for initialization
@@ -120,8 +119,6 @@ public class Visualizacion : MonoBehaviour
     {
         switch (Pj.EstAct)
         {
-
-
             case Player.Estados.EnConduccion:
                 //inventario
                 SetInv3();
@@ -175,6 +172,8 @@ public class Visualizacion : MonoBehaviour
 
     public void CambiarAConduccion()
     {
+        UIUtils.SetCanvasState(steerWheel, true);
+
         CamCalibracion.enabled = false;
         CamConduccion.enabled = true;
         CamDescarga.enabled = false;
@@ -182,6 +181,8 @@ public class Visualizacion : MonoBehaviour
 
     public void CambiarADescarga()
     {
+        UIUtils.SetCanvasState(steerWheel, false);
+
         CamCalibracion.enabled = false;
         CamConduccion.enabled = false;
         CamDescarga.enabled = true;
